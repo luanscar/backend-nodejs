@@ -1,0 +1,33 @@
+@host = localhost
+@port = 3000
+@apiversion = api/v1
+
+###
+POST http://{{host}}:{{port}}/{{apiversion}}/auth/sign-up
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "johns@contoso.com.br",
+  "password": "123456",
+  "password_confirmation": "123456"
+}
+
+###
+
+POST http://{{host}}:{{port}}/{{apiversion}}/auth/sign-in
+Content-Type: application/json
+
+{
+  "email": "johns@contoso.com.br",
+  "password": "123456"
+}
+
+###
+POST http://{{host}}:{{port}}/{{apiversion}}/auth/profile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ0YWFiMzQzLWQyZTUtNDY2Zi04NDU1LWNkZGNlZDBkNDRjYSIsIm5hbWUiOiJKb2huIERvZSIsImVtYWlsIjoiam9obkBjb250b3NvLmNvbS5iciIsImlhdCI6MTczMjA0NzQ0OCwiZXhwIjoxNzYzNTgzNDQ4fQ.Ia4kc5AwNHYnD1xPOqsPRu_h-f6FOZOwCGflKYNO6JU
+
+{
+  "uuid": "5734df6b-d631-4f9b-b975-bd006f1e1f72"
+}

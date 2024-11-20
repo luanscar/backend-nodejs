@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  MODERATOR
+  USER
+}
+
+model User {
+  id       String   @id @db.Uuid @unique
+  name     String
+  email    String
+  password String
+  createAt DateTime @default(now()) @map("created_at")
+  updateAt DateTime @updatedAt @map("updated_at")
+
+  member_on          Member[]
+  owns_organizations Organization[]
+
+  @@map("users")
+}
+
+model Member {
+  id       String   @id @db.Uuid @default(uuid()) @unique
+  role UserRole   @default(USER)
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId String  @db.Uuid  @map("organization_id")
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @db.Uuid @map("user_id")
+
+  @@unique([organizationId, userId])
+  @@map("members")
+}
+
+model Organization {
+  id       String   @id @db.Uuid @unique
+  name     String
+  slug String? @unique
+  domain  String? @unique
+  avatarUrl                 String?  @map("avatar_url")
+  shouldAttachUsersByDomain  Boolean
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  owner User @relation( fields: [ownerId], references: [id])
+  ownerId String @db.Uuid @map("owner_id")
+
+  members Member[]
+
+  @@map("organizations")
+}

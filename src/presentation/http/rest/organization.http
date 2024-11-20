@@ -1,0 +1,26 @@
+@host = localhost
+@port = 3000
+@apiversion = api/v1
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAxMjBjMjZlLTY3Y2YtNDI3MS1iNmFjLTFmNzNlMzk4MTNkNCIsIm5hbWUiOiJKb2huIERvZSIsImVtYWlsIjoiam9obkBjb250b3NvLmNvbS5iciIsImlhdCI6MTczMjA0NzcxOCwiZXhwIjoxNzYzNTgzNzE4fQ.TODcGF4yfvEB8_8k90qc7LevKVWVGtKkxYgzeYw8ZoY
+
+
+###
+POST http://{{host}}:{{port}}/{{apiversion}}/organization/create-organization
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Acmes",
+  "domain": "acme.me",
+  "shouldAttachUsersByDomain": false,
+  "ownerId": "a671e8e0-a7ec-4035-afc7-a4d7216ca5ee"
+}
+###
+GET http://{{host}}:{{port}}/{{apiversion}}/organization/acmes/membership
+Content-Type: application/json
+Authorization: Bearer {{token}}
+###
+GET http://{{host}}:{{port}}/{{apiversion}}/organization/acme
+Content-Type: application/json
+Authorization: Bearer {{token}}
