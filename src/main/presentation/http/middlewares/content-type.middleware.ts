@@ -1,17 +1,20 @@
 import { HttpErrors } from "@shared/presentation/http/http.error";
-import { NextFunction, Request, Response } from "express";
+import type { NextFunction, Request, Response } from "express";
 
-const allowedContentTypes = ['application/json'];
+const allowedContentTypes = ["application/json"];
 
-const contentTypeMiddleware = (request: Request, response: Response, next: NextFunction) => {
+const contentTypeMiddleware = (
+	request: Request,
+	response: Response,
+	next: NextFunction,
+) => {
+	const contentType = request.headers["content-type"];
 
-    const contentType = request.headers['content-type'];
+	if (!contentType || !allowedContentTypes.includes(contentType)) {
+		next(new HttpErrors.UnsupportedMediaTypeError());
+	}
 
-    if (!contentType || !allowedContentTypes.includes(contentType)) {
-        next(new HttpErrors.UnsupportedMediaTypeError());
-    }
+	next();
+};
 
-    next();
-}
-
-export { contentTypeMiddleware as contentType }
+export { contentTypeMiddleware as contentType };
