@@ -2,12 +2,7 @@ import { logger } from "@shared/helpers/logger.winston";
 import type { HttpError } from "@shared/presentation/http/http.error";
 import type { NextFunction, Request, Response } from "express";
 
-const errorLoggerMiddleware = (
-	error: HttpError,
-	request: Request,
-	response: Response,
-	next: NextFunction,
-) => {
+const errorLoggerMiddleware = (error: HttpError, request: Request, response: Response, next: NextFunction) => {
 	const statusCode = error.statusCode || 500;
 
 	const logErro = JSON.stringify(

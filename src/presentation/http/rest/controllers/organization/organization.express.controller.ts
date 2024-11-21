@@ -23,30 +23,21 @@ export class OrganizationController extends ExpressController {
 		this._getUserOrganizationsUseCase = getUserOrganizationsUseCase;
 	}
 
-	async createOrganization(
-		request: Request,
-		response: Response,
-		next: NextFunction,
-	) {
+	async createOrganization(request: Request, response: Response, next: NextFunction) {
 		try {
 			const userId = await request.getCurrentUserId();
 			const organizationInputDTO: CreateOrganizationInputDTO = request.body;
-			const organizationOutInputDTO: IOrganization =
-				await this._createOrganizationUseCase.execute({
-					...organizationInputDTO,
-					ownerId: userId,
-				});
+			const organizationOutInputDTO: IOrganization = await this._createOrganizationUseCase.execute({
+				...organizationInputDTO,
+				ownerId: userId,
+			});
 			this.sendSuccessResponse(response, organizationOutInputDTO);
 		} catch (error) {
 			next(error);
 		}
 	}
 
-	async getMembership(
-		request: Request,
-		response: Response,
-		next: NextFunction,
-	) {
+	async getMembership(request: Request, response: Response, next: NextFunction) {
 		const { slug } = request.params;
 
 		try {
@@ -57,30 +48,20 @@ export class OrganizationController extends ExpressController {
 		}
 	}
 
-	async getOrganization(
-		request: Request,
-		response: Response,
-		next: NextFunction,
-	) {
+	async getOrganization(request: Request, response: Response, next: NextFunction) {
 		const { slug } = request.params;
 		try {
-			const organization: IOrganization =
-				await this._getOrganizationUseCase.execute(slug);
+			const organization: IOrganization = await this._getOrganizationUseCase.execute(slug);
 			this.sendSuccessResponse(response, organization);
 		} catch (error) {
 			next(error);
 		}
 	}
 
-	async getOrganizationsByUserId(
-		request: Request,
-		response: Response,
-		next: NextFunction,
-	) {
+	async getOrganizationsByUserId(request: Request, response: Response, next: NextFunction) {
 		try {
 			const userId = await request.getCurrentUserId();
-			const organization: Array<IOrganization> =
-				await this._getUserOrganizationsUseCase.execute(userId);
+			const organization: Array<IOrganization> = await this._getUserOrganizationsUseCase.execute(userId);
 			this.sendSuccessResponse(response, organization);
 		} catch (error) {
 			next(error);

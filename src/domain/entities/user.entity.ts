@@ -38,10 +38,7 @@ class User extends Entity<IUser> implements IUser {
 	private set name(value: string) {
 		const trimmedValue = value.trim();
 
-		if (
-			trimmedValue.length < User.MIN_NAME_LENGTH ||
-			trimmedValue.length > User.MAX_NAME_LENGTH
-		) {
+		if (trimmedValue.length < User.MIN_NAME_LENGTH || trimmedValue.length > User.MAX_NAME_LENGTH) {
 			throw userExceptions.invalidNameError(
 				`Name must be between ${User.MIN_NAME_LENGTH} and ${User.MAX_NAME_LENGTH} characters`,
 			);
@@ -58,14 +55,10 @@ class User extends Entity<IUser> implements IUser {
 		const trimmedValue = value.trim();
 
 		if (trimmedValue.length > User.MAX_EMAIL_LENGTH) {
-			throw userExceptions.invalidEmailLengthError(
-				`Email must be max ${User.MAX_EMAIL_LENGTH} characters`,
-			);
+			throw userExceptions.invalidEmailLengthError(`Email must be max ${User.MAX_EMAIL_LENGTH} characters`);
 		}
 		if (!isValid) {
-			throw userExceptions.invalidEmailError(
-				`⚠️ Invalid email format: ${value}`,
-			);
+			throw userExceptions.invalidEmailError(`⚠️ Invalid email format: ${value}`);
 		}
 
 		this._email = value;

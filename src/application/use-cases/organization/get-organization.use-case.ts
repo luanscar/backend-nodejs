@@ -17,9 +17,7 @@ class GetOrganizationUseCase implements IUseCase<string, IOrganization> {
 		const organization = await this._organizationRepository.findBySlug(slug);
 
 		if (!organization) {
-			throw new OrganizationApplicationExceptions.organizationNotFoundException(
-				"Organization not found",
-			);
+			throw new OrganizationApplicationExceptions.organizationNotFoundException("Organization not found");
 		}
 		return OrganizationMapper.toDTO(organization);
 	}

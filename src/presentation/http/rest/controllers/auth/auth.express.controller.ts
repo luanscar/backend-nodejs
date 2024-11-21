@@ -3,10 +3,7 @@ import type { SignInUseCase } from "@application/use-cases/auth/sign-in.use-case
 import type { SignUpUseCase } from "@application/use-cases/auth/sign-up.use-case";
 import type { IUser } from "@domain/interfaces/user.interface";
 import type { SignInInputDTO } from "@presentation/dtos/sign-in.dto";
-import type {
-	SignUpInputDTO,
-	SignUpOutputDTO,
-} from "@presentation/dtos/sign-up.dto";
+import type { SignUpInputDTO, SignUpOutputDTO } from "@presentation/dtos/sign-up.dto";
 
 import { ExpressController } from "@shared/presentation/http/express.controller";
 import type { NextFunction, Request, Response } from "express";
@@ -16,11 +13,7 @@ export class AuthController extends ExpressController {
 	private _signUpUseCase: SignUpUseCase;
 	private _getProfileUseCase: GetProfileUseCase;
 
-	constructor(
-		signInUseCase: SignInUseCase,
-		signUpUseCase: SignUpUseCase,
-		getProfileUseCase: GetProfileUseCase,
-	) {
+	constructor(signInUseCase: SignInUseCase, signUpUseCase: SignUpUseCase, getProfileUseCase: GetProfileUseCase) {
 		super();
 		this._signInUseCase = signInUseCase;
 		this._signUpUseCase = signUpUseCase;
@@ -40,8 +33,7 @@ export class AuthController extends ExpressController {
 	async signUp(request: Request, response: Response, next: NextFunction) {
 		try {
 			const dto: SignUpInputDTO = request.body;
-			const signUpOutput: SignUpOutputDTO =
-				await this._signUpUseCase.execute(dto);
+			const signUpOutput: SignUpOutputDTO = await this._signUpUseCase.execute(dto);
 			this.sendSuccessResponse(response, signUpOutput);
 		} catch (error) {
 			next(error);

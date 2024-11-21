@@ -16,11 +16,7 @@ const signUpSchema = z
 		path: ["password_confirmation"],
 	});
 
-const signUpMiddleware = (
-	request: Request,
-	response: Response,
-	next: NextFunction,
-) => {
+const signUpMiddleware = (request: Request, response: Response, next: NextFunction) => {
 	try {
 		signUpSchema.parse(request.body);
 		next();

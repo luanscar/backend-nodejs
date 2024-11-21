@@ -13,7 +13,7 @@
 		"test:ui": "vitest --ui",
 		"test:verbose": "vitest --reporter verbose",
 		"biome-lint": "npx @biomejs/biome lint ./",
-		"biome-lint-apply": "npx @biomejs/biome lint ./ --apply",
+		"biome-lint-apply": "npx @biomejs/biome lint ./ --write",
 		"biome-format": "npx @biomejs/biome format ./",
 		"biome-format-apply": "npx @biomejs/biome format ./ --write",
 		"biome-check": "npx @biomejs/biome check ./",

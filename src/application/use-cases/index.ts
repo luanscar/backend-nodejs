@@ -13,13 +13,9 @@ import { GetUserOrganizationsUseCase } from "./organization/get-user-organizatio
 const signInUseCase = new SignInUseCase(userRepo, new AuthService());
 const signUpUseCase = new SignUpUseCase(userRepo, new BcryptEncoder());
 const getProfileUseCase = new GetProfileUseCase(userRepo);
-const createOrganizationUseCase = new CreateOrganizationUseCase(
-	organizationRepo,
-);
+const createOrganizationUseCase = new CreateOrganizationUseCase(organizationRepo);
 const getOrganizationUseCase = new GetOrganizationUseCase(organizationRepo);
-const getUserOrganizationUseCase = new GetUserOrganizationsUseCase(
-	organizationRepo,
-);
+const getUserOrganizationUseCase = new GetUserOrganizationsUseCase(organizationRepo);
 
 export {
 	signInUseCase,

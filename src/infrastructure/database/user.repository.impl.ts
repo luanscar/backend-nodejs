@@ -3,10 +3,7 @@ import { PrismaRepository } from "@shared/infra/database/prisma.repository";
 import type { User } from "domain/entities/user.entity";
 import type { IUserRepository } from "domain/repositories/user.repository";
 
-export class UserRepositoryImpl
-	extends PrismaRepository
-	implements IUserRepository<User>
-{
+export class UserRepositoryImpl extends PrismaRepository implements IUserRepository<User> {
 	async findByEmail(email: string): Promise<User | null> {
 		const userByEmail = await this._datasource.user.findFirst({
 			where: {

@@ -35,8 +35,7 @@ class Organization extends Entity<IOrganization> {
 	 * @static
 	 * @type {RegExp}
 	 */
-	public static readonly DOMAIN_REGEX: RegExp =
-		/^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
+	public static readonly DOMAIN_REGEX: RegExp = /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
 
 	private _name: string;
 	private _domain?: string | null;
@@ -89,9 +88,7 @@ class Organization extends Entity<IOrganization> {
 	 */
 	private set domain(domain: string | null | undefined) {
 		if (domain && !this.isValidDomain(domain)) {
-			throw new OrganizationApplicationExceptions.invalidDomainNameError(
-				`Invalid domain format: "${domain}"`,
-			);
+			throw new OrganizationApplicationExceptions.invalidDomainNameError(`Invalid domain format: "${domain}"`);
 		}
 		this._domain = domain;
 	}
@@ -184,10 +181,7 @@ class Organization extends Entity<IOrganization> {
 	 * @returns {boolean} True if the name is valid, false otherwise.
 	 */
 	private isValidName(name: string): boolean {
-		return (
-			name.length >= Organization.MIN_NAME_LENGTH &&
-			name.length <= Organization.MAX_NAME_LENGTH
-		);
+		return name.length >= Organization.MIN_NAME_LENGTH && name.length <= Organization.MAX_NAME_LENGTH;
 	}
 
 	/**

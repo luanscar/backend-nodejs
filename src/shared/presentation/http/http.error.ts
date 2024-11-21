@@ -14,10 +14,7 @@ class HttpError extends Error {
 class NotFoundError extends HttpError {
 	constructor(params?: { statusCode?: number; message?: string }) {
 		const { statusCode, message } = params || {};
-		super(
-			statusCode || 404,
-			message || "⚠️ Servidor Não Conseguiu Encontrar o Recurso Solicitado.",
-		);
+		super(statusCode || 404, message || "⚠️ Servidor Não Conseguiu Encontrar o Recurso Solicitado.");
 		this.name = "NotFoundError";
 	}
 }
@@ -27,8 +24,7 @@ class UnsupportedMediaTypeError extends HttpError {
 		const { statusCode, message } = params || {};
 		super(
 			statusCode || 415,
-			message ||
-				"⚠️ Servidor se Recusou a Aceitar a Requisição Porque o Formato do Payload Não é Um Formato Suportado.",
+			message || "⚠️ Servidor se Recusou a Aceitar a Requisição Porque o Formato do Payload Não é Um Formato Suportado.",
 		);
 		this.name = "UnsupportedMediaTypeError";
 	}
@@ -50,8 +46,7 @@ class UnauthorizedError extends HttpError {
 		const { statusCode, message } = params || {};
 		super(
 			statusCode || 401,
-			message ||
-				"⚠️ Servidor Não Pode ou Não Irá Processar a Requisição Devido a Algum Erro do Cliente.",
+			message || "⚠️ Servidor Não Pode ou Não Irá Processar a Requisição Devido a Algum Erro do Cliente.",
 		);
 		this.name = "UnauthorizedError";
 	}

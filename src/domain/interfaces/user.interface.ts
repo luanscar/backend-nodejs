@@ -1,7 +1,4 @@
-import type {
-	IAuditableEntity,
-	IAuditableEntityKeys,
-} from "@shared/domain/auditable.entity";
+import type { IAuditableEntity, IAuditableEntityKeys } from "@shared/domain/auditable.entity";
 
 /**
  * Defines the complete structure of a User entity, including auditable properties.

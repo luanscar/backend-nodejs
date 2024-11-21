@@ -19,9 +19,7 @@ class UserMap {
 		return UserFactory.recreate(user);
 	}
 
-	public static fromPrismaModelToDomain(
-		userPrisma: Prisma.UserCreateInput,
-	): User {
+	public static fromPrismaModelToDomain(userPrisma: Prisma.UserCreateInput): User {
 		return UserMap.toDomain({
 			id: userPrisma.id,
 			name: userPrisma.name,

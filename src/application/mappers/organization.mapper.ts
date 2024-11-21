@@ -45,9 +45,7 @@ export class OrganizationMapper {
 		};
 	}
 
-	public static fromPrismaModelToDomain(
-		organizationPrisma: Prisma.OrganizationCreateManyInput,
-	) {
+	public static fromPrismaModelToDomain(organizationPrisma: Prisma.OrganizationCreateManyInput) {
 		return OrganizationMapper.toDomain(organizationPrisma);
 	}
 }

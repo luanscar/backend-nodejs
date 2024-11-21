@@ -6,14 +6,9 @@ import bcrypt from "bcrypt";
 
 import { UserMap } from "@application/mappers/user.mapper";
 import type { IAuthService } from "@application/services/auth.service.interface";
-import type {
-	SignInInputDTO,
-	SignInOutputDTO,
-} from "@presentation/dtos/sign-in.dto";
+import type { SignInInputDTO, SignInOutputDTO } from "@presentation/dtos/sign-in.dto";
 
-export class SignInUseCase
-	implements IUseCase<SignInInputDTO, SignInOutputDTO>
-{
+export class SignInUseCase implements IUseCase<SignInInputDTO, SignInOutputDTO> {
 	private _userRepo: IUserRepository<User>;
 	private _authService: IAuthService;
 

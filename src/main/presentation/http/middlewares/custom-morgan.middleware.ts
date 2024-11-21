@@ -10,8 +10,7 @@ const skip = () => {
 	return env !== "development";
 };
 
-const formatDefault =
-	":remote-addr :method :url :status :res[content-length] - :response-time ms";
+const formatDefault = ":remote-addr :method :url :status :res[content-length] - :response-time ms";
 
 const customMorganMiddleware = morgan(formatDefault, { stream, skip });
 

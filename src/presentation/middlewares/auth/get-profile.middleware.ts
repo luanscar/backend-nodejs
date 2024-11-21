@@ -9,20 +9,16 @@ const getProfileSchema = z
 	})
 	.strict();
 
-const getProfileMiddleware = (
-	request: Request,
-	response: Response,
-	next: NextFunction,
-) => {
+const getProfileMiddleware = (request: Request, response: Response, next: NextFunction) => {
 	try {
 		getProfileSchema.parse(request.body);
 		next();
 	} catch (error: any) {
 		const validationError = fromZodError(error);
-		const BadRequestError = new HttpErrors.BadRequestError({
-            message: validationError.message
-        });
-		next(error);
+		const badRequestError = new HttpErrors.BadRequestError({
+			message: validationError.message,
+		});
+		next(badRequestError);
 	}
 };
 

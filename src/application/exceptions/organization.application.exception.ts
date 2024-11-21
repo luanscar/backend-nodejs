@@ -1,9 +1,7 @@
 import { ApplicationException } from "@shared/application/application.exception";
 
 class OrganizationApplicationException extends ApplicationException {
-	constructor(
-		message = "⚠️ Generic exception of application of the organization entity",
-	) {
+	constructor(message = "⚠️ Generic exception of application of the organization entity") {
 		super(message);
 		this.name = "OrganizationApplicationException";
 		this.message = message;

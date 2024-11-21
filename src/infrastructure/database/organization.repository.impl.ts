@@ -4,10 +4,7 @@ import { PrismaRepository } from "@shared/infra/database/prisma.repository";
 import { OrganizationMapper } from "application/mappers/organization.mapper";
 import type { Organization } from "domain/entities/organization.entity";
 
-export class OrganizationRepositoryImpl
-	extends PrismaRepository
-	implements IOrganizationRepository<Organization>
-{
+export class OrganizationRepositoryImpl extends PrismaRepository implements IOrganizationRepository<Organization> {
 	async getOrganizationsByUserId(userId: string): Promise<Organization[]> {
 		const organizations = await this._datasource.organization.findMany({
 			where: {
@@ -19,9 +16,8 @@ export class OrganizationRepositoryImpl
 			},
 		});
 
-		const organizationsMap: Array<Organization> = organizations.map(
-			(organization) =>
-				OrganizationMapper.fromPrismaModelToDomain(organization),
+		const organizationsMap: Array<Organization> = organizations.map((organization) =>
+			OrganizationMapper.fromPrismaModelToDomain(organization),
 		);
 
 		return organizationsMap;
@@ -71,9 +67,7 @@ export class OrganizationRepositoryImpl
 
 		if (organizations.length > 0) {
 			organizations.map((organization) => {
-				organizationsMap.push(
-					OrganizationMapper.fromPrismaModelToDomain(organization),
-				);
+				organizationsMap.push(OrganizationMapper.fromPrismaModelToDomain(organization));
 			});
 		}
 
@@ -93,10 +87,10 @@ export class OrganizationRepositoryImpl
 				slug: createSlug(organization.name),
 				domain: organization.domain,
 				shouldAttachUsersByDomain: organization.shouldAttachUsersByDomain,
-				ownerId: organization.ownerId!,
+				ownerId: organization.ownerId as string,
 				members: {
 					create: {
-						userId: organization.ownerId!,
+						userId: organization.ownerId as string,
 						role: "ADMIN",
 					},
 				},

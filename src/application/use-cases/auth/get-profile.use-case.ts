@@ -17,17 +17,13 @@ export class GetProfileUseCase implements IUseCase<string, IUser> {
 		const existsProfile: boolean = await this._userRepo.exists(uuid);
 
 		if (!existsProfile) {
-			throw authApplicationExceptions.authApplicationException(
-				"User not found!",
-			);
+			throw authApplicationExceptions.authApplicationException("User not found!");
 		}
 
 		const userById = await this._userRepo.findByUuid(uuid);
 
 		if (!userById) {
-			throw authApplicationExceptions.authApplicationException(
-				"User not found!",
-			);
+			throw authApplicationExceptions.authApplicationException("User not found!");
 		}
 
 		return UserMap.toDTO(userById);

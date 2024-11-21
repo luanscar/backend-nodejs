@@ -9,19 +9,11 @@ import { validSignUp } from "@presentation/middlewares/auth/sign-up.middleware";
 
 const authRouter = express.Router();
 
-authRouter.post("/sign-in", validSignIn, (request, response, next) =>
-	authController.signIn(request, response, next),
-);
-authRouter.post("/sign-up", validSignUp, (request, response, next) =>
-	authController.signUp(request, response, next),
-);
+authRouter.post("/sign-in", validSignIn, (request, response, next) => authController.signIn(request, response, next));
+authRouter.post("/sign-up", validSignUp, (request, response, next) => authController.signUp(request, response, next));
 
-authRouter.post(
-	"/profile",
-	authMiddleware,
-	validGetProfile,
-	(request, response, next) =>
-		authController.getProfile(request, response, next),
+authRouter.post("/profile", authMiddleware, validGetProfile, (request, response, next) =>
+	authController.getProfile(request, response, next),
 );
 
 export { authRouter };

@@ -5,16 +5,11 @@ import type { IEncoder } from "@application/services/encoder.service.interface";
 import type { User } from "@domain/entities/user.entity";
 import type { CreateUserProps, IUser } from "@domain/interfaces/user.interface";
 import type { IUserRepository } from "@domain/repositories/user.repository";
-import type {
-	SignUpInputDTO,
-	SignUpOutputDTO,
-} from "@presentation/dtos/sign-up.dto";
+import type { SignUpInputDTO, SignUpOutputDTO } from "@presentation/dtos/sign-up.dto";
 import type { IUseCase } from "@shared/application/use-case.interface";
 import bcrypt from "bcrypt";
 
-export class SignUpUseCase
-	implements IUseCase<SignUpInputDTO, SignUpOutputDTO>
-{
+export class SignUpUseCase implements IUseCase<SignUpInputDTO, SignUpOutputDTO> {
 	private _userRepo: IUserRepository<User>;
 	private _encoder: IEncoder;
 
@@ -23,11 +18,7 @@ export class SignUpUseCase
 		this._encoder = encoder;
 	}
 
-	async execute({
-		email,
-		name,
-		password,
-	}: SignUpInputDTO): Promise<SignUpOutputDTO> {
+	async execute({ email, name, password }: SignUpInputDTO): Promise<SignUpOutputDTO> {
 		const dashedPassword = await this._encoder.encode(password);
 
 		const user: User = UserFactory.create({

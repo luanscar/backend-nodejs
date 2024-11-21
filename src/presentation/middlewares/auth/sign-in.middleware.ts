@@ -10,20 +10,16 @@ const signInSchema = z
 	})
 	.strict();
 
-const signInMiddleware = (
-	request: Request,
-	response: Response,
-	next: NextFunction,
-) => {
+const signInMiddleware = (request: Request, response: Response, next: NextFunction) => {
 	try {
 		signInSchema.parse(request.body);
 		next();
 	} catch (error: any) {
 		const validationError = fromZodError(error);
-		error = new HttpErrors.BadRequestError({
+		const badRequestError = new HttpErrors.BadRequestError({
 			message: validationError.message,
 		});
-		next(error);
+		next(badRequestError);
 	}
 };
 

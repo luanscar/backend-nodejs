@@ -7,9 +7,7 @@ import type { IOrganizationRepository } from "@domain/repositories/organization.
 import type { CreateOrganizationInputDTO } from "@presentation/dtos/create-organization.dto";
 import type { IUseCase } from "@shared/application/use-case.interface";
 
-class CreateOrganizationUseCase
-	implements IUseCase<CreateOrganizationInputDTO, IOrganization>
-{
+class CreateOrganizationUseCase implements IUseCase<CreateOrganizationInputDTO, IOrganization> {
 	private _organizationRepository: IOrganizationRepository<Organization>;
 
 	constructor(organizationRepository: IOrganizationRepository<Organization>) {
@@ -20,8 +18,7 @@ class CreateOrganizationUseCase
 		const { domain } = input;
 
 		if (domain) {
-			const organizationByDomain =
-				await this._organizationRepository.findByDomain(domain);
+			const organizationByDomain = await this._organizationRepository.findByDomain(domain);
 
 			if (organizationByDomain) {
 				throw new OrganizationApplicationExceptions.invalidDomainNameError(
@@ -31,8 +28,7 @@ class CreateOrganizationUseCase
 		}
 		const createOrganization = OrganizationFactory.create(input);
 
-		const organization =
-			await this._organizationRepository.create(createOrganization);
+		const organization = await this._organizationRepository.create(createOrganization);
 
 		return OrganizationMapper.toDTO(organization);
 	}

@@ -15,11 +15,7 @@ export const OrganizationSchema = z.object({
 	ownerId: z.string().uuid(),
 });
 
-const createOrganizationMiddleware = (
-	request: Request,
-	response: Response,
-	next: NextFunction,
-) => {
+const createOrganizationMiddleware = (request: Request, response: Response, next: NextFunction) => {
 	try {
 		OrganizationSchema.parse(request.body);
 		next();

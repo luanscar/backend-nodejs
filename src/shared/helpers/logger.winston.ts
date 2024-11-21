@@ -30,23 +30,10 @@ const LevelsRecord: Record<LevelName, ILevel> = {
 };
 
 const levels: winston.config.AbstractConfigSetLevels = Object.fromEntries(
-	Object.keys(LevelsRecord).map((key) => [
-		key,
-		LevelsRecord[key as LevelName].id,
-	]),
+	Object.keys(LevelsRecord).map((key) => [key, LevelsRecord[key as LevelName].id]),
 );
-const colors = Object.fromEntries(
-	Object.keys(LevelsRecord).map((key) => [
-		key,
-		LevelsRecord[key as LevelName].color,
-	]),
-);
-const emojis = Object.fromEntries(
-	Object.keys(LevelsRecord).map((key) => [
-		key,
-		LevelsRecord[key as LevelName].emoji,
-	]),
-);
+const colors = Object.fromEntries(Object.keys(LevelsRecord).map((key) => [key, LevelsRecord[key as LevelName].color]));
+const emojis = Object.fromEntries(Object.keys(LevelsRecord).map((key) => [key, LevelsRecord[key as LevelName].emoji]));
 
 //Este método define a gravidade atual com base no NODE_ENV atual
 //Mostra todos os níveis de log se o servidor estiver executando em modo de desenvolvimento;
@@ -70,38 +57,26 @@ const timeStampDefault = winston.format.timestamp({
 const colorizaDefault = winston.format.colorize({ all: true });
 
 //Define o formato da mensagem para o console mostrando o timestamp de data/hora, nome da api, emoji que indica o level e a mensagem
-const printfConsole = winston.format.printf(
-	({ level, message, label, timestamp }) => {
-		const cleanLevel = level.replace(new RegExp(/\\u001b\[.*?m/g), "");
-		const emoji = emojis[cleanLevel as keyof typeof emojis];
-		const cleanEmoji = emoji.replace(/\\u001b\[.*?m/g, "");
-		return `[${process.env.API_NAME}] ${cleanEmoji} ${message}`;
-	},
-);
+const printfConsole = winston.format.printf(({ level, message, label, timestamp }) => {
+	const cleanLevel = level.replace(new RegExp(/\\u001b\[.*?m/g), "");
+	const emoji = emojis[cleanLevel as keyof typeof emojis];
+	const cleanEmoji = emoji.replace(/\\u001b\[.*?m/g, "");
+	return `[${process.env.API_NAME}] ${cleanEmoji} ${message}`;
+});
 
 //Define o formato da mensagem para o arquivo de log mostrando o timestamp de data/hora, nome da api, emoji que indica o level e a mensagem
-const printfFileLog = winston.format.printf(
-	({ level, message, label, timestamp }) => {
-		const cleanLevel = level.replace(/\\u001b\[.*?m/g, "");
-		const cleanMessage = message.replace(/\\u001b\[.*?m/g, "");
-		const emoji = emojis[cleanLevel as keyof typeof emojis];
-		return `[${timestamp}][${process.env.API_NAME}] ${emoji.trim()} ${cleanMessage}`;
-	},
-);
+const printfFileLog = winston.format.printf(({ level, message, label, timestamp }) => {
+	const cleanLevel = level.replace(/\\u001b\[.*?m/g, "");
+	const cleanMessage = message.replace(/\\u001b\[.*?m/g, "");
+	const emoji = emojis[cleanLevel as keyof typeof emojis];
+	return `[${timestamp}][${process.env.API_NAME}] ${emoji.trim()} ${cleanMessage}`;
+});
 
 //Personalizando o formato padrão usado do log no console
-const formatDefault = winston.format.combine(
-	timeStampDefault,
-	colorizaDefault,
-	printfConsole,
-);
+const formatDefault = winston.format.combine(timeStampDefault, colorizaDefault, printfConsole);
 
 //Personalizando o formato padrão usado no arquivo de log
-const formatFileLog = winston.format.combine(
-	timeStampDefault,
-	colorizaDefault,
-	printfFileLog,
-);
+const formatFileLog = winston.format.combine(timeStampDefault, colorizaDefault, printfFileLog);
 
 // Define quais transportes o logger deve utilizar para imprimir mensagens.
 // Neste exemplo, estamos usando três transportes diferentes

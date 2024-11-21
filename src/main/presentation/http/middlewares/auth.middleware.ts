@@ -4,11 +4,7 @@ import { HttpErrors } from "@shared/presentation/http/http.error";
 import type { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
-export const authMiddleware = async (
-	request: Request,
-	response: Response,
-	next: NextFunction,
-): Promise<void> => {
+export const authMiddleware = async (request: Request, response: Response, next: NextFunction): Promise<void> => {
 	try {
 		request.getCurrentUserId = async (): Promise<string> => {
 			const sub = extractTokenFromAuthHeader(request);

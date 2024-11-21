@@ -23,7 +23,7 @@ declare global {
 }
 
 // Create Prisma client with logging configuration
-const prisma =
+prisma =
 	global.prisma ||
 	new PrismaClient({
 		log: [
