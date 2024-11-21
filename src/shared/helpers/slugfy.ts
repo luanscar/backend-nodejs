@@ -1,9 +1,11 @@
-export function createSlug(text: string): string {
+export function slugfy(text: string): string {
 	return text
-		.normalize("NFD")
-		.replace(/[\u0300-\u036f]/g, "")
-		.replace(/[^\\w\\s]/gi, "")
+		.toString()
+		.toLowerCase()
 		.trim()
-		.replace(/\s+/g, "-")
-		.toLowerCase();
+		.replace(/\s+/g, "-") // Replace spaces with -
+		.replace(/[^\w\-]+/g, "") // Remove all non-word chars
+		.replace(/\-\-+/g, "-") // Replace multiple - with single -
+		.replace(/^-+/, "") // Trim - from start of text
+		.replace(/-+$/, ""); // Trim - from end of text
 }

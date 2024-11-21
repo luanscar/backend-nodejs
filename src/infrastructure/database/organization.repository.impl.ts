@@ -1,5 +1,5 @@
 import type { IOrganizationRepository } from "@domain/repositories/organization.repository.interface";
-import { createSlug } from "@shared/helpers/slugfy";
+import { slugify } from "@shared/helpers/slugfy";
 import { PrismaRepository } from "@shared/infra/database/prisma.repository";
 import { OrganizationMapper } from "application/mappers/organization.mapper";
 import type { Organization } from "domain/entities/organization.entity";
@@ -84,7 +84,7 @@ export class OrganizationRepositoryImpl extends PrismaRepository implements IOrg
 			data: {
 				id: organization.id,
 				name: organization.name,
-				slug: createSlug(organization.name),
+				slug: organization.name,
 				domain: organization.domain,
 				shouldAttachUsersByDomain: organization.shouldAttachUsersByDomain,
 				ownerId: organization.ownerId as string,

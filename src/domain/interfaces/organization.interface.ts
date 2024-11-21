@@ -3,6 +3,7 @@ import type { IAuditableEntity } from "@shared/domain/auditable.entity";
 interface IOrganization extends IAuditableEntity {
 	id?: string;
 	name: string;
+	slug: string;
 	domain?: string | null;
 	shouldAttachUsersByDomain: boolean;
 	ownerId?: string | null;

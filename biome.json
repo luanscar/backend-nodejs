@@ -16,7 +16,9 @@
 		"rules": {
 			"suspicious": {
 				"noExplicitAny": "off",
-				"noMisleadingCharacterClass": "off"
+				"noMisleadingCharacterClass": "off",
+				"noControlCharactersInRegex": "off",
+				"noRedeclare": "off"
 			},
 
 			"complexity": {

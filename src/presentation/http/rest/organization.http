@@ -2,8 +2,7 @@
 @port = 3000
 @apiversion = api/v1
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY0M2EwMzBmLTNlN2MtNGU4Zi04ZGU0LWY2OTc1MmQ0YWVlZCIsIm5hbWUiOiJKb2huIERvZSIsImVtYWlsIjoiam9obnNAY29udG9zby5jb20uYnIiLCJpYXQiOjE3MzIxNTM0MTYsImV4cCI6MTc2MzY4OTQxNn0.RD94LAGLZ7o8q4haII2RhSnIlbwSBw6yqLsKDZtOrvA
-
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc4ODAxMjNhLWQ3YWYtNDEwZC1iZWExLWUzZmIzZjljMWQ1MyIsIm5hbWUiOiJKb2huIERvZSIsImVtYWlsIjoiam9obnNAY29udG9zby5jb20uYnIiLCJpYXQiOjE3MzIyMDAyMTgsImV4cCI6MTc2MzczNjIxOH0.lUg4sqNY5ovFDk7yg91CGa1vHgkPbIIb6iYVJO5TFY8
 
 ###
 GET http://{{host}}:{{port}}/{{apiversion}}/organization/user-organizations
@@ -22,7 +21,7 @@ Authorization: Bearer {{token}}
   "ownerId": "a671e8e0-a7ec-4035-afc7-a4d7216ca5ee"
 }
 ###
-GET http://{{host}}:{{port}}/{{apiversion}}/organization/acmes/membership
+GET http://{{host}}:{{port}}/{{apiversion}}/organization/acme-inc/membership
 Content-Type: application/json
 Authorization: Bearer {{token}}
 ###

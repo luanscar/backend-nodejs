@@ -1,5 +1,6 @@
 import { OrganizationApplicationExceptions } from "@application/exceptions/organization.application.exception";
 import { Entity } from "@shared/domain/entity";
+import { slugfy } from "@shared/helpers/slugfy";
 import type { IOrganization } from "domain/interfaces/organization.interface";
 
 /**
@@ -38,11 +39,12 @@ class Organization extends Entity<IOrganization> {
 	public static readonly DOMAIN_REGEX: RegExp = /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
 
 	private _name: string;
-	private _domain?: string | null;
+	private _domain: string | null | undefined;
+	private _slug: string;
 	private _shouldAttachUsersByDomain: boolean;
-	private _createdAt?: Date | null | string;
+	private _createdAt?: Date | undefined | null | string;
 	private _updatedAt?: Date | null | string;
-	private _ownerId?: string | null;
+	private _ownerId: string | null | undefined;
 
 	/**
 	 * Getter for the organization name.
@@ -67,7 +69,16 @@ class Organization extends Entity<IOrganization> {
 				`Organization name must be between ${Organization.MIN_NAME_LENGTH} and ${Organization.MAX_NAME_LENGTH} characters.`,
 			);
 		}
+
 		this._name = trimmedName;
+	}
+
+	public get slug(): string {
+		return this._slug;
+	}
+
+	public set slug(slug: string) {
+		this._slug = slugfy(slug);
 	}
 
 	/**
@@ -86,7 +97,7 @@ class Organization extends Entity<IOrganization> {
 	 *
 	 * @param {(string | null | undefined)} domain - The domain to be set.
 	 */
-	private set domain(domain: string | null | undefined) {
+	private set domain(domain) {
 		if (domain && !this.isValidDomain(domain)) {
 			throw new OrganizationApplicationExceptions.invalidDomainNameError(`Invalid domain format: "${domain}"`);
 		}
@@ -125,7 +136,7 @@ class Organization extends Entity<IOrganization> {
 	 *
 	 * @param {(Date | undefined)} value - The date and time to be set.
 	 */
-	private set createdAt(value: Date | undefined | null | string) {
+	private set createdAt(value: Date | null | string | undefined) {
 		this._createdAt = value;
 	}
 
@@ -143,7 +154,7 @@ class Organization extends Entity<IOrganization> {
 	 *
 	 * @param {(Date | undefined)} value - The date and time to be set.
 	 */
-	private set updatedAt(value: Date | undefined | null | string) {
+	private set updatedAt(value) {
 		this._updatedAt = value;
 	}
 
@@ -151,7 +162,7 @@ class Organization extends Entity<IOrganization> {
 		return this._ownerId;
 	}
 
-	private set ownerId(ownerId: string | null | undefined) {
+	private set ownerId(ownerId) {
 		this._ownerId = ownerId;
 	}
 
@@ -165,6 +176,7 @@ class Organization extends Entity<IOrganization> {
 	constructor(organization: IOrganization) {
 		super(organization.id);
 		this.name = organization.name;
+		this.slug = organization.name;
 		this.domain = organization.domain;
 		this.shouldAttachUsersByDomain = organization.shouldAttachUsersByDomain;
 		this.createdAt = organization.createdAt;

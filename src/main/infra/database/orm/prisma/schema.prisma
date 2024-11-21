@@ -17,7 +17,7 @@ enum UserRole {
 }
 
 model User {
-  id       String   @id @db.Uuid @unique
+  id       String   @id @unique @db.Uuid
   name     String
   email    String
   password String
@@ -31,30 +31,30 @@ model User {
 }
 
 model Member {
-  id       String   @id @db.Uuid @default(uuid()) @unique
-  role UserRole   @default(USER)
+  id   String   @id @unique @default(uuid()) @db.Uuid
+  role UserRole @default(USER)
 
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-  organizationId String  @db.Uuid  @map("organization_id")
+  organizationId String       @map("organization_id") @db.Uuid
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String @db.Uuid @map("user_id")
+  userId String @map("user_id") @db.Uuid
 
   @@unique([organizationId, userId])
   @@map("members")
 }
 
 model Organization {
-  id       String   @id @db.Uuid @unique
-  name     String
-  slug String? @unique
-  domain  String? @unique
+  id                        String   @id @unique @db.Uuid
+  name                      String
+  slug                      String   @unique
+  domain                    String?  @unique
   avatarUrl                 String?  @map("avatar_url")
-  shouldAttachUsersByDomain  Boolean
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  owner User @relation( fields: [ownerId], references: [id])
-  ownerId String @db.Uuid @map("owner_id")
+  shouldAttachUsersByDomain Boolean
+  createdAt                 DateTime @default(now()) @map("created_at")
+  updatedAt                 DateTime @updatedAt @map("updated_at")
+  owner                     User     @relation(fields: [ownerId], references: [id])
+  ownerId                   String   @map("owner_id") @db.Uuid
 
   members Member[]
 

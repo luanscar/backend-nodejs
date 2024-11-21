@@ -26,6 +26,7 @@ export class OrganizationMapper {
 		return {
 			id: organization.id,
 			name: organization.name,
+			slug: organization.slug,
 			domain: organization.domain,
 			shouldAttachUsersByDomain: organization.shouldAttachUsersByDomain,
 			createdAt: organization.createdAt,
@@ -37,6 +38,7 @@ export class OrganizationMapper {
 		return {
 			id: organization.id,
 			name: organization.name,
+			slug: organization.slug,
 			domain: organization.domain,
 			shouldAttachUsersByDomain: organization.shouldAttachUsersByDomain,
 			createdAt: organization.createdAt,

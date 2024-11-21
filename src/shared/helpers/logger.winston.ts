@@ -58,16 +58,16 @@ const colorizaDefault = winston.format.colorize({ all: true });
 
 //Define o formato da mensagem para o console mostrando o timestamp de data/hora, nome da api, emoji que indica o level e a mensagem
 const printfConsole = winston.format.printf(({ level, message, label, timestamp }) => {
-	const cleanLevel = level.replace(new RegExp(/\\u001b\[.*?m/g), "");
+	const cleanLevel = level.replace(new RegExp(/\u001b\[.*?m/g), "");
 	const emoji = emojis[cleanLevel as keyof typeof emojis];
-	const cleanEmoji = emoji.replace(/\\u001b\[.*?m/g, "");
+	const cleanEmoji = emoji.replace(/\u001b\[.*?m/g, "");
 	return `[${process.env.API_NAME}] ${cleanEmoji} ${message}`;
 });
 
 //Define o formato da mensagem para o arquivo de log mostrando o timestamp de data/hora, nome da api, emoji que indica o level e a mensagem
 const printfFileLog = winston.format.printf(({ level, message, label, timestamp }) => {
-	const cleanLevel = level.replace(/\\u001b\[.*?m/g, "");
-	const cleanMessage = message.replace(/\\u001b\[.*?m/g, "");
+	const cleanLevel = level.replace(/\u001b\[.*?m/g, "");
+	const cleanMessage = message.replace(/\u001b\[.*?m/g, "");
 	const emoji = emojis[cleanLevel as keyof typeof emojis];
 	return `[${timestamp}][${process.env.API_NAME}] ${emoji.trim()} ${cleanMessage}`;
 });
