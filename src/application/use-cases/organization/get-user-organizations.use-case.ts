@@ -5,14 +5,14 @@ import type { IOrganizationRepository } from "@domain/repositories/organization.
 import type { IUseCase } from "@shared/application/use-case.interface";
 
 export class GetUserOrganizationsUseCase implements IUseCase<string, Array<IOrganization>> {
-	private _organizationRepo: IOrganizationRepository<Organization>;
+	private _organizationRepository: IOrganizationRepository<Organization>;
 
 	constructor(organizationRepo: IOrganizationRepository<Organization>) {
-		this._organizationRepo = organizationRepo;
+		this._organizationRepository = organizationRepo;
 	}
 
 	async execute(userId: string): Promise<Array<IOrganization>> {
-		const organizations: Array<Organization> = await this._organizationRepo.getOrganizationsByUserId(userId);
+		const organizations: Array<Organization> = await this._organizationRepository.getOrganizationsByUserId(userId);
 
 		const organizationsToDTO: Array<IOrganization> = organizations.map((organization) =>
 			OrganizationMapper.toDTO(organization),

@@ -6,26 +6,9 @@ import jwt from "jsonwebtoken";
 
 export const authMiddleware = async (request: Request, response: Response, next: NextFunction): Promise<void> => {
 	try {
-		request.getCurrentUserId = async (): Promise<string> => {
-			const sub = extractTokenFromAuthHeader(request);
+		const userId = await getUserIdFromAuthHeader(request);
 
-			const user = jwt.verify(sub, process.env.JWT_SECRET as string) as IUser;
-
-			const userById = await prisma.user.findUnique({
-				where: {
-					id: user.id,
-				},
-			});
-
-			if (!userById) {
-				throw new HttpErrors.UnauthorizedError({
-					message: "Invalid user token",
-				});
-			}
-
-			request.user = userById;
-			return request.user.id;
-		};
+		request.getCurrentUserId = async () => userId;
 
 		request.getUserMembership = async (slug: string) => {
 			const userId = await request.getCurrentUserId();
@@ -38,7 +21,7 @@ export const authMiddleware = async (request: Request, response: Response, next:
 
 			if (!findOrganization) {
 				throw new HttpErrors.NotFoundError({
-					message: "Organization not found",
+					message: "You're not a member of any organization, or the organization does not exist",
 				});
 			}
 
@@ -72,7 +55,7 @@ export const authMiddleware = async (request: Request, response: Response, next:
 	}
 };
 
-export const extractTokenFromAuthHeader = (request: Request): string => {
+export const getUserIdFromAuthHeader = async (request: Request): Promise<string> => {
 	const authorization = request.headers.authorization;
 
 	if (!authorization) {
@@ -89,5 +72,20 @@ export const extractTokenFromAuthHeader = (request: Request): string => {
 		});
 	}
 
-	return token;
+	const user = jwt.verify(token, process.env.JWT_SECRET as string) as IUser;
+
+	const userById = await prisma.user.findUnique({
+		where: {
+			id: user.id,
+		},
+	});
+
+	if (!userById) {
+		throw new HttpErrors.UnauthorizedError({
+			message: "Invalid user token",
+		});
+	}
+
+	request.user = userById;
+	return request.user.id;
 };

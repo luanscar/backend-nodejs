@@ -19,6 +19,7 @@ class GetOrganizationUseCase implements IUseCase<string, IOrganization> {
 		if (!organization) {
 			throw new OrganizationApplicationExceptions.organizationNotFoundException("Organization not found");
 		}
+
 		return OrganizationMapper.toDTO(organization);
 	}
 }

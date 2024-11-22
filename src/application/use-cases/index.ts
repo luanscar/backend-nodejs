@@ -6,36 +6,28 @@ import { CreateOrganizationUseCase } from "./organization/create-organization.us
 
 import { AuthService } from "@application/services/auth.service";
 import { BcryptEncoder } from "@application/services/bcrypt-encoder.service";
-import { configDotenv } from "dotenv";
-import { GetOrganizationUseCase } from "./organization/get-organization.use-case";
+
 import { GetUserOrganizationsUseCase } from "./organization/get-user-organizations.use-case";
 import { DeleteOrganizationUseCase } from "./organization/delete-organization.use-case";
 import { TransferOrganizationUseCase } from "./organization/transfer-organization.use-case";
+import { GetOrganizationUseCase } from "./organization/get-organization.use-case";
 
 const signInUseCase = new SignInUseCase(userRepo, new AuthService());
 const signUpUseCase = new SignUpUseCase(userRepo, new BcryptEncoder());
 const getProfileUseCase = new GetProfileUseCase(userRepo);
-const createOrganizationUseCase = new CreateOrganizationUseCase(
-  organizationRepo
-);
+const createOrganizationUseCase = new CreateOrganizationUseCase(organizationRepo);
 const getOrganizationUseCase = new GetOrganizationUseCase(organizationRepo);
-const getUserOrganizationUseCase = new GetUserOrganizationsUseCase(
-  organizationRepo
-);
-const deleteOrganizationUseCase = new DeleteOrganizationUseCase(
-  organizationRepo
-);
-const transferOrganizationUseCase = new TransferOrganizationUseCase(
-  organizationRepo
-);
+const getUserOrganizationsUseCase = new GetUserOrganizationsUseCase(organizationRepo);
+const deleteOrganizationUseCase = new DeleteOrganizationUseCase(organizationRepo);
+const transferOrganizationUseCase = new TransferOrganizationUseCase(organizationRepo);
 
 export {
-  signInUseCase,
-  signUpUseCase,
-  getProfileUseCase,
-  createOrganizationUseCase,
-  getOrganizationUseCase,
-  getUserOrganizationUseCase,
-  deleteOrganizationUseCase,
-  transferOrganizationUseCase,
+	signInUseCase,
+	signUpUseCase,
+	getProfileUseCase,
+	createOrganizationUseCase,
+	getOrganizationUseCase,
+	getUserOrganizationsUseCase,
+	deleteOrganizationUseCase,
+	transferOrganizationUseCase,
 };
