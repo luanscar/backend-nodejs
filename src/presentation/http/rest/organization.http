@@ -15,8 +15,8 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "name": "acme inc",
-  "domain": "acmeinc.me",
+  "name": "acme",
+  "domain": "acme.me",
   "shouldAttachUsersByDomain": false,
   "ownerId": "a671e8e0-a7ec-4035-afc7-a4d7216ca5ee"
 }
@@ -24,7 +24,12 @@ Authorization: Bearer {{token}}
 GET http://{{host}}:{{port}}/{{apiversion}}/organization/acme-inc/membership
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
 ###
 GET http://{{host}}:{{port}}/{{apiversion}}/organization/acme
+Content-Type: application/json
+Authorization: Bearer {{token}}
+###
+DELETE http://{{host}}:{{port}}/{{apiversion}}/organization/acme
 Content-Type: application/json
 Authorization: Bearer {{token}}

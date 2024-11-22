@@ -19,8 +19,11 @@ organizationRouter.get("/organizations", (request: Request, response: Response, 
 	organizationController.getOrganization(request, response, next),
 );
 
-organizationRouter.get("/", (request: Request, response: Response, next: NextFunction) =>
+organizationRouter.get("/:slug", (request: Request, response: Response, next: NextFunction) =>
 	organizationController.getOrganization(request, response, next),
+);
+organizationRouter.delete("/:slug", (request: Request, response: Response, next: NextFunction) =>
+	organizationController.deleteOrganization(request, response, next),
 );
 
 organizationRouter.get("/user-organizations", (request: Request, response: Response, next: NextFunction) =>

@@ -1,5 +1,4 @@
 import type { IOrganizationRepository } from "@domain/repositories/organization.repository.interface";
-import { slugify } from "@shared/helpers/slugfy";
 import { PrismaRepository } from "@shared/infra/database/prisma.repository";
 import { OrganizationMapper } from "application/mappers/organization.mapper";
 import type { Organization } from "domain/entities/organization.entity";
@@ -84,7 +83,7 @@ export class OrganizationRepositoryImpl extends PrismaRepository implements IOrg
 			data: {
 				id: organization.id,
 				name: organization.name,
-				slug: organization.name,
+				slug: organization.slug,
 				domain: organization.domain,
 				shouldAttachUsersByDomain: organization.shouldAttachUsersByDomain,
 				ownerId: organization.ownerId as string,
@@ -102,7 +101,15 @@ export class OrganizationRepositoryImpl extends PrismaRepository implements IOrg
 	update(uuid: string, organization: Partial<Organization>): Promise<boolean> {
 		throw new Error("Method not implemented.");
 	}
-	delete(uuid: string): Promise<boolean> {
-		throw new Error("Method not implemented.");
+
+	async delete(uuid: string): Promise<boolean> {
+		const deletedOrganization = await this._datasource.organization.delete({
+			where: {
+				id: uuid,
+			},
+		});
+		if (deletedOrganization) return true;
+
+		return true;
 	}
 }

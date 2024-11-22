@@ -6,7 +6,7 @@ declare global {
 		interface Request {
 			user?: IUser;
 			getCurrentUserId(): Promise<string>;
-			getUserMembership(slug: T): Promise<T>;
+			getUserMembership(slug: string): Promise<OrganizationWithMembership>;
 		}
 	}
 }
