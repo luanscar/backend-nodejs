@@ -2,7 +2,7 @@
 @port = 3000
 @apiversion = api/v1
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc4ODAxMjNhLWQ3YWYtNDEwZC1iZWExLWUzZmIzZjljMWQ1MyIsIm5hbWUiOiJKb2huIERvZSIsImVtYWlsIjoiam9obnNAY29udG9zby5jb20uYnIiLCJpYXQiOjE3MzIyMDAyMTgsImV4cCI6MTc2MzczNjIxOH0.lUg4sqNY5ovFDk7yg91CGa1vHgkPbIIb6iYVJO5TFY8
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY0M2EwMzBmLTNlN2MtNGU4Zi04ZGU0LWY2OTc1MmQ0YWVlZCIsIm5hbWUiOiJKb2huIERvZSIsImVtYWlsIjoiam9obnNAY29udG9zby5jb20uYnIiLCJpYXQiOjE3MzIyMzc2NjIsImV4cCI6MTc2Mzc3MzY2Mn0.3T5EG-TPRMucPpoNnQXUIFgKGhVjUhANmtD6EJfDlFE
 
 ###
 GET http://{{host}}:{{port}}/{{apiversion}}/organization/user-organizations
@@ -31,5 +31,10 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 ###
 DELETE http://{{host}}:{{port}}/{{apiversion}}/organization/acme
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+PATCH  http://{{host}}:{{port}}/{{apiversion}}/organization/acme-inc/owner
 Content-Type: application/json
 Authorization: Bearer {{token}}
