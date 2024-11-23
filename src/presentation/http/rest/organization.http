@@ -2,10 +2,22 @@
 @port = 3000
 @apiversion = api/v1
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc4ODAxMjNhLWQ3YWYtNDEwZC1iZWExLWUzZmIzZjljMWQ1MyIsIm5hbWUiOiJKb2huIERvZSIsImVtYWlsIjoiam9obnNAY29udG9zby5jb20uYnIiLCJpYXQiOjE3MzIyOTk0ODQsImV4cCI6MTc2MzgzNTQ4NH0.cYhVoAEvpfeu292p-nWO9wtinV9Dm1tY6Dj_PunagNs
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY0M2EwMzBmLTNlN2MtNGU4Zi04ZGU0LWY2OTc1MmQ0YWVlZCIsIm5hbWUiOiJKb2huIERvZSIsImVtYWlsIjoiam9obnNAY29udG9zby5jb20uYnIiLCJpYXQiOjE3MzIzNzQ0MjYsImV4cCI6MTc2MzkxMDQyNn0.GsPnD4On3k6diyxcdjhYC1jylYOz6ha2PxXIv3_ptaI
 
 
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4MTcwOGVlLTk2MjEtNGYyYi1iYmJmLTA3ZmQ5ZTI2YjU3MyIsIm5hbWUiOiJKb2hucyIsImVtYWlsIjoiam9obkBhY21laW5jLmNvbS5iciIsImlhdCI6MTczMjM3NDY3OCwiZXhwIjoxNzYzOTEwNjc4fQ.qepnk7cFbYoEdKQIFlctSaTrX3xYtzAw2vAXYaJT9g4",
+  "user": {
+    "id": "381708ee-9621-4f2b-bbbf-07fd9e26b573",
+    "name": "Johns",
+    "email": "john@acmeinc.com.br",
+    "password": "$2b$10$COPT94rGYVTpfB6wAJOeVewqmKUN6W8Gntqj/d1TINtCWr2YnO70e",
+    "createdAt": "2024-11-23T15:11:05.887Z",
+    "updatedAt": "2024-11-23T15:11:05.887Z"
+  }
+}
 
+// Create a new organization
 ###
 POST http://{{host}}:{{port}}/{{apiversion}}/organization/create-organization
 Content-Type: application/json
@@ -17,27 +29,38 @@ Authorization: Bearer {{token}}
   "shouldAttachUsersByDomain": false,
   "ownerId": "a671e8e0-a7ec-4035-afc7-a4d7216ca5ee"
 }
+
+// Get user organizations
+###
+GET http://{{host}}:{{port}}/{{apiversion}}/organization/user-organizations
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+// Get organization membership
 ###
 GET http://{{host}}:{{port}}/{{apiversion}}/organization/acme/membership
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
+// Get organization details
 ###
 GET http://{{host}}:{{port}}/{{apiversion}}/organization/acme
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+// Delete an organization
 ###
 DELETE http://{{host}}:{{port}}/{{apiversion}}/organization/acme
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
+// Update organization owner
 ###
-PATCH  http://{{host}}:{{port}}/{{apiversion}}/organization/acme-inc/owner
+PATCH http://{{host}}:{{port}}/{{apiversion}}/organization/acme-inc/owner
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
+{
+  "transferToUserId": "381708ee-9621-4f2b-bbbf-07fd9e26b573"
+}
 
-###
-GET http://{{host}}:{{port}}/{{apiversion}}/organization/user-organizations
-Content-Type: application/json
-Authorization: Bearer {{token}}

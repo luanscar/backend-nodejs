@@ -1,3 +1,7 @@
+import type { OrganizationWithMembership } from "@shared/infra/database/prisma.types";
+
 export interface TransferOrganizationInputDTO {
-  transferToUserId: string;
+	userId: string;
+	transferToUserId: string;
+	organizationMembership: OrganizationWithMembership;
 }

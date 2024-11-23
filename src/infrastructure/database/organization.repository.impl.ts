@@ -33,9 +33,27 @@ export class OrganizationRepositoryImpl extends PrismaRepository implements IOrg
 		return null;
 	}
 
-	getMembership(slug: string): Promise<Organization | null> {
-		throw new Error("Method not implemented.");
+	async getMembership({
+		organizationId,
+		transferToUserId,
+	}: { organizationId: string; transferToUserId: string }): Promise<any | boolean> {
+
+		const transferMembership = await this._datasource.member.findUnique({
+			where: {
+				organizationId_userId: {
+					organizationId,
+					userId: transferToUserId,
+				},
+			},
+		});
+
+		if (!transferMembership) {
+			return false;
+		}
+
+		return true;
 	}
+
 	async findByDomain(domain: string): Promise<Organization | null> {
 		const organization = await this._datasource.organization.findUnique({
 			where: { domain },

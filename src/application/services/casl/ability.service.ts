@@ -6,7 +6,8 @@ import { inviteSubject } from "./subjects/invite";
 import { billingSubject } from "./subjects/billing";
 import { AbilityBuilder, type CreateAbility, createMongoAbility, type MongoAbility } from "@casl/ability";
 import { permissions } from "./permissions";
-import type { User } from "./models/user";
+import { userSchema, type User } from "./models/user";
+import type { Role } from "./roles";
 
 const appAbilitiesSchema = z.union([
 	projectSubject,
@@ -39,6 +40,17 @@ export function defineAbilityFor(user: User) {
 
 	ability.can = ability.can.bind(ability);
 	ability.cannot = ability.cannot.bind(ability);
+
+	return ability;
+}
+
+export function getUserPermissions(userId: string, role: Role) {
+	const authUser = userSchema.parse({
+		id: userId,
+		role,
+	});
+
+	const ability = defineAbilityFor(authUser);
 
 	return ability;
 }

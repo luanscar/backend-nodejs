@@ -7,8 +7,8 @@ POST http://{{host}}:{{port}}/{{apiversion}}/auth/sign-up
 Content-Type: application/json
 
 {
-  "name": "John Doe",
-  "email": "johns@contoso.com.br",
+  "name": "Johns",
+  "email": "john@acmeinc.com.br",
   "password": "123456",
   "password_confirmation": "123456"
 }
@@ -19,7 +19,7 @@ POST http://{{host}}:{{port}}/{{apiversion}}/auth/sign-in
 Content-Type: application/json
 
 {
-  "email": "johns@contoso.com.br",
+  "email": "john@acmeinc.com.br",
   "password": "123456"
 }
 
