@@ -1,5 +1,6 @@
 import {
 	createOrganizationController,
+	deleteOrganizationController,
 	getMembershipController,
 	getOrganizationController,
 	getUserOrganizationsController,
@@ -34,7 +35,7 @@ organizationRouter.patch("/:slug/owner", (request: Request, response: Response, 
 );
 
 organizationRouter.delete("/:slug", (request: Request, response: Response, next: NextFunction) =>
-	organizationController.deleteOrganization(request, response, next),
+	deleteOrganizationController.deleteOrganization(request, response, next),
 );
 
 export { organizationRouter };
